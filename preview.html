@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview - Dairy Feed Efficiency</title>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        .preview-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .feature-list li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .demo-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin: 5px;
+        }
+        .status-ready {
+            background: #d4edda;
+            color: #155724;
+        }
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <h1>Dairy Feed Efficiency App - Preview</h1>
+        
+        <div class="info-box">
+            <strong>Status:</strong> <span class="status status-ready">Deployment Ready</span>
+        </div>
+        
+        <div class="demo-section">
+            <h2>Features Included:</h2>
+            <ul class="feature-list">
+                <li>Milk Yield Prediction based on feed composition</li>
+                <li>Feed Formulation Optimization with cost minimization</li>
+                <li>Feed Efficiency Calculation (L/kg DM)</li>
+                <li>Nutrient Requirement Analysis (ME, CP, Ca, P)</li>
+                <li>Interactive Dashboard with Charts</li>
+                <li>Beautiful gradient UI design</li>
+                <li>Fully responsive on mobile, tablet, and desktop</li>
+                <li>Real-time predictions and optimizations</li>
+            </ul>
+        </div>
+        
+        <div class="demo-section">
+            <h2>Responsive Design:</h2>
+            <ul class="feature-list">
+                <li>Mobile optimized (480px and below)</li>
+                <li>Tablet optimized (768px and below)</li>
+                <li>Desktop optimized (1024px and above)</li>
+                <li>Flexible grid layouts that adapt to screen size</li>
+                <li>Touch-friendly buttons and inputs</li>
+                <li>Readable fonts and spacing on all devices</li>
+            </ul>
+        </div>
+        
+        <div class="demo-section">
+            <h2>Color Scheme:</h2>
+            <p><strong>Primary Gradient:</strong> Purple to Blue (#667eea → #764ba2)</p>
+            <p><strong>Cards:</strong> White with rounded corners and shadows</p>
+            <p><strong>Text:</strong> Dark gray (#333) on white backgrounds</p>
+            <p><strong>Accents:</strong> Purple (#667eea) for highlights</p>
+        </div>
+        
+        <div class="demo-section">
+            <h2>Deployment Checklist:</h2>
+            <ul class="feature-list">
+                <li>✓ Flask app configured</li>
+                <li>✓ All dependencies in requirements.txt</li>
+                <li>✓ Gunicorn configured for production</li>
+                <li>✓ Render.yaml configuration file</li>
+                <li>✓ Procfile for deployment</li>
+                <li>✓ Python runtime specified</li>
+                <li>✓ Model training on startup</li>
+                <li>✓ Error handling in place</li>
+                <li>✓ Responsive CSS with media queries</li>
+                <li>✓ Interactive JavaScript functionality</li>
+            </ul>
+        </div>
+        
+        <div class="info-box">
+            <h3>To Deploy:</h3>
+            <ol>
+                <li>Push code to GitHub</li>
+                <li>Connect repository to Render</li>
+                <li>Render will auto-detect and deploy</li>
+                <li>Your app will be live at your Render URL!</li>
+            </ol>
+        </div>
+        
+        <div class="info-box">
+            <h3>To Test Locally:</h3>
+            <ol>
+                <li>Install dependencies: <code>pip install -r requirements.txt</code></li>
+                <li>Run: <code>python app.py</code></li>
+                <li>Open browser: <code>http://localhost:5000</code></li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>
+

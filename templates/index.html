@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dairy Cattle Feed Efficiency Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Dairy Cattle Feed Efficiency Analyzer</h1>
+            <p class="subtitle">Optimize feed formulation and predict milk yield with AI-powered insights</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="predict">Milk Yield Prediction</button>
+            <button class="tab-btn" data-tab="optimize">Feed Optimization</button>
+            <button class="tab-btn" data-tab="dashboard">Dashboard</button>
+        </div>
+
+        <div class="tab-content active" id="predict-tab">
+            <div class="card">
+                <h2>Predict Milk Yield</h2>
+                <form id="predictForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="maize_bran">Maize Bran (kg)</label>
+                            <input type="number" id="maize_bran" name="maize_bran" step="0.1" min="0" value="4.0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cottonseed">Cottonseed (kg)</label>
+                            <input type="number" id="cottonseed" name="cottonseed" step="0.1" min="0" value="1.5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="brewers_grain">Brewers Grain (kg)</label>
+                            <input type="number" id="brewers_grain" name="brewers_grain" step="0.1" min="0" value="2.0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="grass_silage">Grass Silage (kg)</label>
+                            <input type="number" id="grass_silage" name="grass_silage" step="0.1" min="0" value="3.5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nel">NEL (MJ/kg)</label>
+                            <input type="number" id="nel" name="nel" step="0.01" min="0" value="6.0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cp">CP (%)</label>
+                            <input type="number" id="cp" name="cp" step="0.1" min="0" value="13.8" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lysine">Lysine (%)</label>
+                            <input type="number" id="lysine" name="lysine" step="0.01" min="0" value="0.62" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="days_in_milk">Days in Milk</label>
+                            <input type="number" id="days_in_milk" name="days_in_milk" step="1" min="0" value="150" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Predict Milk Yield</button>
+                </form>
+
+                <div id="predictResults" class="results hidden">
+                    <div class="result-card">
+                        <h3>Prediction Results</h3>
+                        <div class="metrics">
+                            <div class="metric">
+                                <span class="metric-label">Predicted Milk Yield</span>
+                                <span class="metric-value" id="predMilkYield">-</span>
+                                <span class="metric-unit">Liters</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Feed Efficiency</span>
+                                <span class="metric-value" id="predFeedEfficiency">-</span>
+                                <span class="metric-unit">L/kg DM</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Total Dry Matter</span>
+                                <span class="metric-value" id="predTotalDM">-</span>
+                                <span class="metric-unit">kg</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="optimize-tab">
+            <div class="card">
+                <h2>Optimize Feed Formulation</h2>
+                <form id="optimizeForm">
+                    <div class="form-group">
+                        <label for="target_milk">Target Milk Yield (Liters)</label>
+                        <input type="number" id="target_milk" name="target_milk" step="0.1" min="10" max="25" value="15.0" required>
+                        <small>Recommended range: 10-25 liters</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="max_cost">Maximum Budget (UGX)</label>
+                        <input type="number" id="max_cost" name="max_cost" step="100" min="0" value="10000" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Optimize Feed</button>
+                </form>
+
+                <div id="optimizeResults" class="results hidden">
+                    <div class="result-card">
+                        <h3>Optimal Feed Formulation</h3>
+                        <div class="feed-breakdown">
+                            <div class="feed-item">
+                                <span class="feed-name">Maize Bran</span>
+                                <span class="feed-amount" id="optMaizeBran">-</span>
+                                <span class="feed-unit">kg</span>
+                            </div>
+                            <div class="feed-item">
+                                <span class="feed-name">Cottonseed</span>
+                                <span class="feed-amount" id="optCottonseed">-</span>
+                                <span class="feed-unit">kg</span>
+                            </div>
+                            <div class="feed-item">
+                                <span class="feed-name">Brewers Grain</span>
+                                <span class="feed-amount" id="optBrewersGrain">-</span>
+                                <span class="feed-unit">kg</span>
+                            </div>
+                            <div class="feed-item">
+                                <span class="feed-name">Grass Silage</span>
+                                <span class="feed-amount" id="optGrassSilage">-</span>
+                                <span class="feed-unit">kg</span>
+                            </div>
+                        </div>
+                        
+                        <div class="metrics">
+                            <div class="metric">
+                                <span class="metric-label">Expected Milk Yield</span>
+                                <span class="metric-value" id="optMilkYield">-</span>
+                                <span class="metric-unit">Liters</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Total Cost</span>
+                                <span class="metric-value" id="optTotalCost">-</span>
+                                <span class="metric-unit">UGX</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Cost per Liter</span>
+                                <span class="metric-value" id="optCostPerLiter">-</span>
+                                <span class="metric-unit">UGX/L</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Feed Efficiency</span>
+                                <span class="metric-value" id="optFeedEfficiency">-</span>
+                                <span class="metric-unit">L/kg DM</span>
+                            </div>
+                        </div>
+
+                        <div class="nutrients-table">
+                            <h4>Nutrient Analysis</h4>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nutrient</th>
+                                        <th>Required</th>
+                                        <th>Provided</th>
+                                        <th>Balance</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="nutrientsBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="dashboard-tab">
+            <div class="card">
+                <h2>Performance Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <canvas id="feedChart"></canvas>
+                    </div>
+                    <div class="dashboard-card">
+                        <canvas id="efficiencyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
